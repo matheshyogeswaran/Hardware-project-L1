@@ -9,7 +9,7 @@ int main(void){
 	USART_init(9600);
 	char RFID[12]="/0"; memset(RFID,0,15);
 	LCD_Clear(); LCD_String("Welcome");LCD_Command(0xC0); LCD_String("Press Start");
-	_delay_ms(1000);
+	_delay_ms(2000);
 	
 	start:
     while (1){
@@ -27,6 +27,7 @@ int main(void){
 				LCD_Command(0xC0);
 				LCD_String("in Process");
 				_delay_ms(2000);
+				LCD_Clear();
 				PORTD=0x04;
 			}
 			PORTD = 0x00;
@@ -48,7 +49,7 @@ int main(void){
 				if(key==3){
 					prepareMeal(50);
 				}else if(key==4){
-					prepareMeal(70);
+					prepareMeal(80);
 				}else{
 					goto start;
 				}
@@ -66,7 +67,7 @@ int main(void){
 
 void prepareMeal(int weight){
 	
-	//weight can be 50g(key 3) 70g(key 4)
+	//weight can be 50g(key 3) 80g(key 4)
 	LCD_Clear();
 	LCD_String("Place the Bowl");
 	_delay_ms(100);
@@ -77,35 +78,48 @@ void prepareMeal(int weight){
 		_delay_ms(1000);
 		int key1=keyfind();
 		if(key1==2){
-	
-			servo1ninety();//servo top lid
-			while(/*loadCellRead()*/weight+1<=weight){};
-			servo1zero();//close servo top lid
-			_delay_ms(1000);
-			servo2ninety();//servo bottom lid open
-			_delay_ms(2000);
-			servo2zero();//servo bottom close
-			
-			portHigh(PORTD,6);
-			_delay_ms(10);
-			PORTD = 0x00;
-			_delay_ms(3000);
-			portHigh(PORTD,7);
-			_delay_ms(100);
-			PORTD =0x00;
-			_delay_ms(2000);
-			//OCR2=30;//turn on DC motor.. Move
-			//_delay_ms(3000);//time to move bowl to next place
-			//OCR2=0;//turn off DC motor
-			
-			//OCR0=50; //speed van vary between 0-254 //turn on water pump
-			//_delay_ms(4000);
-			//OCR0=0; //turn off water pump
 			LCD_Clear();
+			LCD_String("Preparing");
+			_delay_ms(1000);
+			LCD_Clear();
+			servo1ninety();//servo top lid
+			char lcddata[20];
+			int hx=0;
+			while(hx<=weight){
+				DDRA|=(1<<0);		//Load cell clock pin
+				PORTA&=~(1<<0);		//Clock pin low
+				hx=loadCellRead();		//inserting load cell calibration function
+				_delay_ms(100);
+				itoa(hx,lcddata,10);		//convert int to string
+				LCD_String(lcddata);		//data to be displayed on lcd
+				_delay_ms(1000);
+				LCD_Clear();
+				};
+			LCD_String("Limit exceeded");
+			servo1zero();//close servo top lid
+			_delay_ms(10);
+			servo2ninety();//servo bottom lid open
+			_delay_ms(20);
+			servo2zero();//servo bottom close
+			LCD_Clear();
+			LCD_String("Moving Belt");
+			portHigh(PORTD,6);
+			_delay_ms(5);
+			PORTD = 0x00;
+			_delay_ms(5000);
+			LCD_Clear();
+			LCD_String("Flowing Milk");
+			portHigh(PORTD,7);
+			_delay_ms(10);
+			PORTD =0x00;
+			_delay_ms(15000);
+			LCD_Clear();
+			
+			
 			LCD_String("Cornflakes");
 			LCD_Command(0XC0);
 			LCD_String("Ready");
-			_delay_ms(1000);
+			_delay_ms(10000);
 			LCD_Clear();
 			
 		}
