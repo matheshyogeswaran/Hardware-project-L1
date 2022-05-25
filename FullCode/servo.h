@@ -1,20 +1,26 @@
+
+void servo1ninety(void);
+void servo1zero(void);
+void servo2ninety(void);
+void servo2zero(void);
+
 void servo1ninety(void)
 {
-	DDRC = 0x80; //Makes PC7 output pin
-	PORTC = 0x00;
+	
+	PORTD = 0x20;
 	while(1)
 	{
 		//Rotate Motor to 0 degree
-		PORTC = 0x80;
+		PORTD = 0x20;
 		_delay_us(1000);
-		PORTC = 0x00;
+		PORTD = 0x00;
 		
 		_delay_ms(2000);
 		
 		//Rotate Motor to 90 degree
-		PORTC = 0x80;
+		PORTD = 0x20;
 		_delay_us(1500);
-		PORTC = 0x00;
+		PORTD = 0x00;
 		
 		_delay_ms(2000);
 		
@@ -24,14 +30,14 @@ void servo1ninety(void)
 
 void servo1zero(void)
 {
-	DDRC = 0x80; //Makes PC7 output pin
-	PORTC = 0x00;
+	
+	PORTD = 0x20;
 	while(1)
 	{
 		//Rotate Motor to 0 degree
-		PORTC = 0x80;
+		PORTD = 0x20;
 		_delay_us(1000);
-		PORTC = 0x00;
+		PORTD = 0x00;
 		
 		_delay_ms(2000);
 		
@@ -42,21 +48,21 @@ void servo1zero(void)
 
 void servo2ninety(void)
 {
-	DDRB = 0x04; //Makes PB2 output pin
-	PORTB = 0x04;
+	
+	PORTD = 0x10;
 	while(1)
 	{
 		//Rotate Motor to 0 degree
-		PORTB = 0x04;
+		PORTD = 0x10;
 		_delay_us(1000);
-		PORTB = 0x00;
+		PORTD = 0x00;
 		
 		_delay_ms(2000);
 		
 		//Rotate Motor to 90 degree
-		PORTB = 0x04;
+		PORTD = 0x10;
 		_delay_us(1500);
-		PORTB = 0x00;
+		PORTD = 0x00;
 		
 		_delay_ms(2000);
 		
@@ -66,17 +72,18 @@ void servo2ninety(void)
 
 void servo2zero(void)
 {
-	DDRB = 0x04; //Makes PB2 output pin
-	PORTB = 0x04;
+	
+	PORTD = 0x10;
 	while(1)
 	{
 		//Rotate Motor to 0 degree
-		PORTB = 0x04;
+		PORTD = 0x10;
 		_delay_us(1000);
-		PORTB = 0x00;
+		PORTD = 0x00;
 		
 		_delay_ms(2000);
 		
+		break;
 		
 	}
 }

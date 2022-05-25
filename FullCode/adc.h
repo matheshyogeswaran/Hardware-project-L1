@@ -1,3 +1,5 @@
+
+
 void ADC_Init()
 {
 	DDRA=0x00;			/* Make ADC port as input */

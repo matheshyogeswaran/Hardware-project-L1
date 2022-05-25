@@ -1,7 +1,7 @@
 
-#define US_PORT PORTD
-#define	US_PIN	PIND  
-#define US_DDR 	DDRD
+#define US_PORT PORTA
+#define	US_PIN	PINA  
+#define US_DDR 	DDRA
 #define US_ERROR		-1
 #define	US_NO_OBSTACLE	-2
 

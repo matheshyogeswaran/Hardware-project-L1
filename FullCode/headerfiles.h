@@ -11,4 +11,3 @@
 #include "load.h"
 #include "pwm.h"
 #include "servo.h"
-#define startButton 4
