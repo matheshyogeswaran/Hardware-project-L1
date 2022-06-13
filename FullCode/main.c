@@ -26,14 +26,16 @@ int main(void){
 				LCD_String("Milk Heating");
 				LCD_Command(0xC0);
 				LCD_String("in Process");
-				_delay_ms(2000);
+				_delay_ms(500);
 				LCD_Clear();
 				PORTD=0x04;
 			}
 			PORTD = 0x00;
 		}
+		LCD_String("Press Start");
 		//start button 1
 		int keyStart =keyfind();
+		LCD_Clear();
 		if(keyStart==1){
 			LCD_Clear();
 			LCD_String("Show RFID tag");
@@ -46,6 +48,7 @@ int main(void){
 				LCD_Command(0xC0);
 				LCD_String("3: Small 4:Large");
 				int key=keyfind();
+
 				if(key==3){
 					prepareMeal(50);
 				}else if(key==4){
@@ -128,6 +131,7 @@ void prepareMeal(int weight){
 	}else{
 		LCD_Clear();
 		LCD_String("Place Bowl");
+		_delay_ms(2000);
 	}
 }
 
